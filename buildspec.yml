@@ -1,11 +1,12 @@
 ##[application-name] は後で必要になるので適当な名前に、
 ##[S3-bucket-name]は「2-1 成果物格納用のS3バケットを準備しておく」で作成したS3バケットを指定。
 
-version: 0.1
+version: 0.2
 
 phases:
   build:
     commands:
+      - echo "ビルドテスト"
       - aws deploy push --region ap-northeast-1 --application-name samplename --s3-location s3://s3test4723945739 --source src
 artifacts:
   files:
