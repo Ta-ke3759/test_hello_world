@@ -1,15 +1,17 @@
-##[application-name] は後で必要になるので適当な名前に、
-##[S3-bucket-name]は「2-1 成果物格納用のS3バケットを準備しておく」で作成したS3バケットを指定。
-
-version: 0.2
-
-phases:
-  build:
-    commands:
-      - echo "ビルドテスト"
-      - aws deploy push --region ap-northeast-1 --application-name samplename --s3-location s3://s3test4723945739 --source src
-artifacts:
-  files:
-    - '**/*'
-  base-directory: src
-  name: sample.zip
+version: 0.0
+os: linux
+files:
+  - source: /index.html
+    destination: /var/www/html/
+hooks:
+  BeforeInstall:
+    - location: scripts/install_dependencies
+      timeout: 300
+      runas: root
+    - location: scripts/start_server
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: scripts/stop_server
+      timeout: 300
+      runas: root
